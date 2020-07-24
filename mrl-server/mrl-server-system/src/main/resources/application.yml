@@ -23,7 +23,7 @@ spring:
       p6spy: true #开启p6spy sql日志打印，开发环境性能会带来损耗，生产环境建议关闭
 
 mybatis-plus:
-  type-aliases-package: com.mrl.common.entry.system
+  type-aliases-package: com.mrl.common.entry.system,com.mrl.server.system.vo
   mapper-locations: classpath:mapper/*/*.xml
   configuration:
     jdbc-type-for-null: null

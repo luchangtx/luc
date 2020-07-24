@@ -34,5 +34,5 @@ public interface UserService extends IService<DnUser> {
      * 删除用户
      * @param userIds 用户id数组
      */
-    void deleteUser(String[] userIds);
+    void deleteUsers(String[] userIds);
 }

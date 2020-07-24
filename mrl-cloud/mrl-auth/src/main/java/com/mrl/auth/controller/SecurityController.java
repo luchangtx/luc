@@ -3,6 +3,7 @@ package com.mrl.auth.controller;
 import com.mrl.auth.service.ValidateCodeService;
 import com.mrl.common.entry.CResponse;
 import com.mrl.common.exception.BaseException;
+import com.mrl.common.exception.ErrorType;
 import com.mrl.common.exception.ValidateCodeException;
 import org.apache.commons.lang.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -45,7 +46,7 @@ public class SecurityController {
 
     @GetMapping("get")
     public String get() throws BaseException {
-        throw new BaseException("全局异常测试");
+        throw new BaseException(ErrorType.SYSTEM_ERROR,"全局异常测试");
     }
 
     //通过 ConsumerTokenServices 注销token

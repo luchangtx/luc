@@ -4,10 +4,12 @@ import com.baomidou.mybatisplus.annotation.IdType;
 import com.baomidou.mybatisplus.annotation.TableField;
 import com.baomidou.mybatisplus.annotation.TableId;
 import com.baomidou.mybatisplus.annotation.TableName;
+import com.mrl.common.annotation.IsMobile;
 import com.mrl.common.entry.BasePojo;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 
+import javax.validation.constraints.*;
 import java.io.Serializable;
 import java.time.LocalDateTime;
 
@@ -43,10 +45,12 @@ public class DnUser extends BasePojo implements Serializable {
 
     //用户名
     @TableField("USERNAME")
+    @Size(min = 4,max = 15,message = "{range}")
     private String username;
 
     //姓名
     @TableField("NAME")
+    @NotBlank(message = "{required}")
     private String name;
 
     //密码
@@ -59,14 +63,19 @@ public class DnUser extends BasePojo implements Serializable {
 
     //邮箱
     @TableField("EMAIL")
+    @Size(max =50,message = "{noMoreThan}")
+    @Email(message = "{email}")
     private String email;
 
     //联系电话
     @TableField("MOBILE")
+    @IsMobile(message = "{mobile}")
     private String mobile;
 
     //性别 0保密 1男 2女
     @TableField("SEX")
+    @Min(value = 0,message = "{sexMin}")
+    @Max(value = 2,message = "{sexMax}")
     private int sex;
 
     //头像

@@ -15,6 +15,7 @@
     <version>1.0</version>
     <name>mrl-server</name>
     <description>服务提供模块</description>
+    <packaging>pom</packaging>
 
     <modules>
         <module>mrl-server-system</module>

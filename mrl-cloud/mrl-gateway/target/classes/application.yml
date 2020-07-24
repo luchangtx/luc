@@ -1,0 +1,43 @@
+server:
+  port: 8201
+
+spring:
+  application:
+    name: MRL-Gateway
+  autoconfigure: #因为common模块增加了mybatis-plus-boot-starter包含数据库自动装配，没有配置数据库的模块需要关闭数据库自动装配
+    exclude: org.springframework.boot.autoconfigure.jdbc.DataSourceAutoConfiguration
+
+eureka:
+  instance:
+    lease-renewal-interval-in-seconds: 30 # 每隔30秒向服务注册中心发送心跳
+  client:
+    register-with-eureka: true #注册到服务中心
+    fetch-registry: true #从注册中心获取服务信息
+    instance-info-replication-interval-seconds: 30 #微服务启动后30s注册到服务中心
+    registry-fetch-interval-seconds: 3 #默认30，每隔30s从注册中心获取服务并缓存，此处为方便测试设置为3
+    service-url:
+      defaultZone: http://mrl:luc@localhost:8001/register/eureka/
+zuul:
+  routes:
+    auth: #所有auth开头的请求转发到名为MRL-Auth服务上，由于请求头需要携带token，所以
+      path: /auth/**
+      serviceId: MRL-Auth
+      sensitiveHeaders: "*" #不过滤请求头信息，原封不动转发
+    system:
+      path: /system/**
+      serviceId: MRL-Server-System
+      sensitiveHeaders: "*" #不过滤请求头
+    normal:
+      path: /normal/**
+      serviceId: MRL-Server-Normal
+      sensitiveHeaders: "*" #不过滤请求头
+  retryable: true #开始重试机制
+  ignored-services: "*" #zuul配合eureka有一套默认的规则，设置为*表示关闭所有默认配置规则
+  ribbon:
+    eager-load:
+      enabled: true #开启ribbon饥饿模式服务启动时就获取client备用
+  SendErrorFilter: #让默认的异常过滤器失效,首字母大写
+    error:
+      disable: true
+ribbon:
+  ReadTimeout: 3000 #请求超时时间 ms

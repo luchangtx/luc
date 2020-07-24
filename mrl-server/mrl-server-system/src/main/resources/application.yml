@@ -1,0 +1,47 @@
+server:
+  port: 8081
+
+spring:
+  application:
+    name: MRL-Server-System
+  datasource:
+    dynamic:
+      hikari: #springboot2.0之后推荐使用连接池，响应速度快
+        connection-timeout: 30000
+        max-lifetime: 1800000
+        max-pool-size: 15
+        min-idle: 5
+        connection-test-query: select 1
+        pool-name: MrlHikariCP
+      primary: base
+      datasource:
+        base:
+          username: root
+          password: luc
+          driver-class-name: com.mysql.cj.jdbc.Driver
+          url: jdbc:mysql://localhost:3306/cloud_base?useUnicode=true&characterEncoding=UTF-8&useJDBCCompliantTimeZoneShift=true&useLegacyDatetimeCode=false&serverTimezone=GMT%2B8
+      p6spy: true #开启p6spy sql日志打印，开发环境性能会带来损耗，生产环境建议关闭
+
+mybatis-plus:
+  type-aliases-package: com.mrl.common.entry.system
+  mapper-locations: classpath:mapper/*/*.xml
+  configuration:
+    jdbc-type-for-null: null
+  global-config:
+    banner: false
+
+eureka:
+  instance:
+    lease-renewal-interval-in-seconds: 20
+  client:
+    register-with-eureka: true
+    fetch-registry: true
+    instance-info-replication-interval-seconds: 30
+    service-url:
+      defaultZone: http://mrl:luc@localhost:8001/register/eureka/
+
+security:
+  oauth2:
+    resource:
+      id: ${spring.application.name}
+      user-info-uri: http://localhost:8201/auth/user #校验令牌是否合法；通过令牌获取用户信息

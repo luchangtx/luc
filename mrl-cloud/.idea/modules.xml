@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="ProjectModuleManager">
+    <modules>
+      <module fileurl="file://$PROJECT_DIR$/mrl-auth/mrl-auth.iml" filepath="$PROJECT_DIR$/mrl-auth/mrl-auth.iml" />
+      <module fileurl="file://$PROJECT_DIR$/mrl-cloud.iml" filepath="$PROJECT_DIR$/mrl-cloud.iml" />
+      <module fileurl="file://$PROJECT_DIR$/mrl-common/mrl-common.iml" filepath="$PROJECT_DIR$/mrl-common/mrl-common.iml" />
+      <module fileurl="file://$PROJECT_DIR$/mrl-gateway/mrl-gateway.iml" filepath="$PROJECT_DIR$/mrl-gateway/mrl-gateway.iml" />
+      <module fileurl="file://$PROJECT_DIR$/mrl-register/mrl-register.iml" filepath="$PROJECT_DIR$/mrl-register/mrl-register.iml" />
+      <module fileurl="file://$PROJECT_DIR$/../mrl-server/mrl-server.iml" filepath="$PROJECT_DIR$/../mrl-server/mrl-server.iml" />
+      <module fileurl="file://$PROJECT_DIR$/../mrl-server/mrl-server-normal/mrl-server-normal.iml" filepath="$PROJECT_DIR$/../mrl-server/mrl-server-normal/mrl-server-normal.iml" />
+      <module fileurl="file://$PROJECT_DIR$/../mrl-server/mrl-server-system/mrl-server-system.iml" filepath="$PROJECT_DIR$/../mrl-server/mrl-server-system/mrl-server-system.iml" />
+    </modules>
+  </component>
+</project>

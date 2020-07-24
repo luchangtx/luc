@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.mrl.auth.mapper.MenuMapper">
+
+    <!--根据用户名获取用户权限信息-->
+    <!--resultType 可以直接通过类名首字母小写指定类型，因为yml文件进行了别名扫描-->
+    <select id="findUserPermissions" parameterType="string" resultType="dnMenu">
+        select distinct m.perms
+        from dn_role r
+            left join dn_user_role ur on (r.role_id=ur.role_id)
+            left join dn_user u on (u.user_id=ur.user_id)
+            left join dn_role_menu rm on (rm.role_id=r.role_id)
+            left join dn_menu m on (m.menu_id=rm.menu_id)
+        where u.username = #{username}
+            and m.perms is not null
+            and m.perms &lt;&gt; ''
+    </select>
+</mapper>

@@ -1,0 +1,26 @@
+server:
+  port: 8082
+
+spring:
+  application:
+    name: MRL-Server-Normal
+
+eureka:
+  instance:
+    lease-renewal-interval-in-seconds: 20
+  client:
+    register-with-eureka: true
+    fetch-registry: true
+    instance-info-replication-interval-seconds: 30
+    service-url:
+      defaultZone: http://mrl:luc@localhost:8001/register/eureka/
+security:
+  oauth2:
+    resource:
+      id: ${spring.application.name}
+      user-info-uri: http://localhost:8201/auth/user #У�������Ƿ�Ϸ���ͨ�����ƻ�ȡ�û���Ϣ
+feign:
+  hystrix:
+    enabled: true #���˻���hystrix�۶���ʵ�֣��������û��˹���
+hystrix:
+  shareSecurityContext: true #��SecurityContext����ӵ�ǰ�̹߳���Hystrix�߳�

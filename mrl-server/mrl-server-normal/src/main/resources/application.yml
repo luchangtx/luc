@@ -1,0 +1,28 @@
+server:
+  port: 8082
+
+spring:
+  application:
+    name: MRL-Server-Normal
+  autoconfigure: #因为common模块增加了mybatis-plus-boot-starter包含数据库自动装配，没有配置数据库的模块需要关闭数据库自动装配
+    exclude: org.springframework.boot.autoconfigure.jdbc.DataSourceAutoConfiguration #,com.baomidou.dynamic.datasource.spring.boot.autoconfigure.DynamicDataSourceAutoConfiguration
+
+eureka:
+  instance:
+    lease-renewal-interval-in-seconds: 20
+  client:
+    register-with-eureka: true
+    fetch-registry: true
+    instance-info-replication-interval-seconds: 30
+    service-url:
+      defaultZone: http://mrl:luc@localhost:8001/register/eureka/
+security:
+  oauth2:
+    resource:
+      id: ${spring.application.name}
+      user-info-uri: http://localhost:8201/auth/user #校验令牌是否合法；通过令牌获取用户信息
+feign:
+  hystrix:
+    enabled: true #回退基于hystrix熔断器实现，开启调用回退功能
+hystrix:
+  shareSecurityContext: true #把SecurityContext对象从当前线程共享到Hystrix线程

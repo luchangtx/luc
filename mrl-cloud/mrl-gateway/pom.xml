@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 https://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <modelVersion>4.0.0</modelVersion>
+    <parent>
+        <groupId>com.mrl</groupId>
+        <artifactId>mrl-cloud</artifactId>
+        <version>1.0</version>
+    </parent>
+    <groupId>com.mrl.gateway</groupId>
+    <artifactId>mrl-gateway</artifactId>
+    <version>1.0</version>
+    <name>mrl-gateway</name>
+    <description>微服务网关</description>
+
+    <properties>
+        <sentinel.version>1.7.2</sentinel.version>
+    </properties>
+
+    <dependencies>
+        <!--引入公共依赖-->
+        <dependency>
+            <groupId>com.mrl.common</groupId>
+            <artifactId>mrl-common</artifactId>
+            <version>1.0</version>
+        </dependency>
+
+        <!--zuul网关依赖-->
+        <dependency>
+            <groupId>org.springframework.cloud</groupId>
+            <artifactId>spring-cloud-starter-netflix-zuul</artifactId>
+        </dependency>
+
+        <!--网关需要注册到服务中心，引入eureka client包-->
+        <dependency>
+            <groupId>org.springframework.cloud</groupId>
+            <artifactId>spring-cloud-starter-netflix-eureka-client</artifactId>
+        </dependency>
+
+        <!--阿里巴巴 Sentinel流量哨兵 限流 （比如频繁请求图形验证码给服务器造成压力）-->
+        <!--sentinel-zuul2-adapter 不清楚这两个版本什么区别-->
+        <dependency>
+            <groupId>com.alibaba.csp</groupId>
+            <artifactId>sentinel-zuul-adapter</artifactId>
+            <version>${sentinel.version}</version>
+        </dependency>
+
+    </dependencies>
+    <build>
+        <plugins>
+            <plugin>
+                <groupId>org.springframework.boot</groupId>
+                <artifactId>spring-boot-maven-plugin</artifactId>
+            </plugin>
+        </plugins>
+    </build>
+
+</project>

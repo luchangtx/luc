@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="CompilerConfiguration">
+    <annotationProcessing>
+      <profile name="Maven default annotation processors profile" enabled="true">
+        <sourceOutputDir name="target/generated-sources/annotations" />
+        <sourceTestOutputDir name="target/generated-test-sources/test-annotations" />
+        <outputRelativeToContentRoot value="true" />
+        <module name="mrl-auth" />
+        <module name="mrl-register" />
+        <module name="mrl-gateway" />
+        <module name="mrl-common" />
+        <module name="mrl-server-normal" />
+        <module name="mrl-server-system" />
+        <module name="mrl-server" />
+      </profile>
+    </annotationProcessing>
+    <bytecodeTargetLevel>
+      <module name="mrl-auth" target="1.8" />
+      <module name="mrl-cloud" target="1.8" />
+      <module name="mrl-common" target="1.8" />
+      <module name="mrl-gateway" target="1.8" />
+      <module name="mrl-register" target="1.8" />
+      <module name="mrl-register1" target="1.8" />
+      <module name="mrl-server" target="1.8" />
+      <module name="mrl-server-normal" target="1.8" />
+      <module name="mrl-server-system" target="1.8" />
+    </bytecodeTargetLevel>
+  </component>
+  <component name="JavacSettings">
+    <option name="ADDITIONAL_OPTIONS_OVERRIDE">
+      <module name="mrl-auth" options="-parameters" />
+      <module name="mrl-cloud" options="-parameters" />
+      <module name="mrl-common" options="-parameters" />
+      <module name="mrl-gateway" options="-parameters" />
+      <module name="mrl-register" options="-parameters" />
+      <module name="mrl-register1" options="-parameters" />
+      <module name="mrl-server" options="-parameters" />
+      <module name="mrl-server-normal" options="-parameters" />
+      <module name="mrl-server-system" options="-parameters" />
+    </option>
+  </component>
+</project>

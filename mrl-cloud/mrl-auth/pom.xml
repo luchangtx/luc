@@ -1,0 +1,75 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 https://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <modelVersion>4.0.0</modelVersion>
+    <parent>
+        <groupId>com.mrl</groupId>
+        <artifactId>mrl-cloud</artifactId>
+        <version>1.0</version>
+        <!--../mrl-cloud/pom.xml-->
+    </parent>
+
+    <groupId>com.mrl.auth</groupId>
+    <artifactId>mrl-auth</artifactId>
+    <version>1.0</version>
+    <name>mrl-auth</name>
+    <description>微服务认证服务器</description>
+
+    <properties>
+        <mybatis.dynamic-datasource.version>3.1.1</mybatis.dynamic-datasource.version>
+        <mrl-common.version>1.0</mrl-common.version>
+        <captcha.version>1.6.2</captcha.version>
+    </properties>
+
+    <dependencies>
+        <!--引用公共模块依赖，因为这个模块引入了security和oauth2依赖，索引这里不许再引入-->
+        <dependency>
+            <groupId>com.mrl.common</groupId>
+            <artifactId>mrl-common</artifactId>
+            <version>${mrl-common.version}</version>
+        </dependency>
+
+        <!--认证服务器需要注册到服务中心，因此需要引入eureka 客户端包-->
+        <dependency>
+            <groupId>org.springframework.cloud</groupId>
+            <artifactId>spring-cloud-starter-netflix-eureka-client</artifactId>
+        </dependency>
+
+        <!--mybatis plus多数据源依赖-->
+        <dependency>
+            <groupId>com.baomidou</groupId>
+            <artifactId>dynamic-datasource-spring-boot-starter</artifactId>
+            <version>${mybatis.dynamic-datasource.version}</version>
+        </dependency>
+
+        <!--mysql连接驱动-->
+        <dependency>
+            <groupId>mysql</groupId>
+            <artifactId>mysql-connector-java</artifactId>
+            <scope>runtime</scope>
+        </dependency>
+
+        <!--springboot2.0 之后推荐使用Lettuce代替jedis，集成Lettuce所需的连接池依赖-->
+        <dependency>
+            <groupId>org.apache.commons</groupId>
+            <artifactId>commons-pool2</artifactId>
+        </dependency>
+
+        <!--借助github开源项目生成图形验证码-->
+        <dependency>
+            <groupId>com.github.whvcse</groupId>
+            <artifactId>easy-captcha</artifactId>
+            <version>${captcha.version}</version>
+        </dependency>
+    </dependencies>
+
+    <build>
+        <plugins>
+            <plugin>
+                <groupId>org.springframework.boot</groupId>
+                <artifactId>spring-boot-maven-plugin</artifactId>
+            </plugin>
+        </plugins>
+    </build>
+
+</project>

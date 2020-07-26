@@ -77,7 +77,7 @@ public class UserServiceImpl extends ServiceImpl<UserMapper, DnUser> implements 
             int unSame=0;
             for (String roleId:roles){
                 if (!listRoleId.contains(roleId)){
-                    unSame++;
+                    unSame++;break;//只要有一个待新增的角色，就终止循环，直接进行角色修改操作
                 }
             }
             if (unSame>0||(unSame==0&&roles.length!=listRoleId.size())){

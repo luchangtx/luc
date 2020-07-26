@@ -1,6 +1,6 @@
 package com.mrl.auth.service;
 
-import com.mrl.auth.config.AuthConfigure;
+import com.mrl.auth.properties.AuthProperties;
 import com.mrl.auth.properties.ValidateCodeProperties;
 import com.mrl.common.entry.Constant;
 import com.mrl.common.exception.ValidateCodeException;
@@ -27,7 +27,7 @@ public class ValidateCodeService {
     @Autowired
     private RedisService redisService;
     @Autowired
-    private AuthConfigure configure;
+    private AuthProperties configure;
 
     /**
      * 生成验证码

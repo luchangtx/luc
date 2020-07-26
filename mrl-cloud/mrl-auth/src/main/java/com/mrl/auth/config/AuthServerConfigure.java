@@ -1,5 +1,6 @@
 package com.mrl.auth.config;
 
+import com.mrl.auth.properties.AuthProperties;
 import com.mrl.auth.properties.ClientsProperties;
 import com.mrl.auth.service.AuthUserDetailService;
 import com.mrl.auth.translator.AuthWebResponseExceptionTranslator;
@@ -46,7 +47,7 @@ public class AuthServerConfigure extends AuthorizationServerConfigurerAdapter {
     private PasswordEncoder passwordEncoder;
 
     @Autowired
-    private AuthConfigure authConfigure;
+    private AuthProperties authProperties;
 
     //异常翻译处理类
     @Autowired
@@ -57,7 +58,7 @@ public class AuthServerConfigure extends AuthorizationServerConfigurerAdapter {
     public void configure(ClientDetailsServiceConfigurer clients) throws Exception {
         //客户端 使用密码认证模式并设置登录的账号密码
         //获取配置的client信息
-        ClientsProperties[] clientsArray=authConfigure.getClients();
+        ClientsProperties[] clientsArray= authProperties.getClients();
         InMemoryClientDetailsServiceBuilder builder=clients.inMemory();
 
         if (ArrayUtils.isNotEmpty(clientsArray)){
@@ -107,9 +108,9 @@ public class AuthServerConfigure extends AuthorizationServerConfigurerAdapter {
         //开启刷新令牌的支持
         tokenServices.setSupportRefreshToken(true);
         //指定令牌有效时间 一天
-        tokenServices.setAccessTokenValiditySeconds(authConfigure.getAccessTokenValiditySeconds());
+        tokenServices.setAccessTokenValiditySeconds(authProperties.getAccessTokenValiditySeconds());
         //刷新令牌有效时间 七天
-        tokenServices.setRefreshTokenValiditySeconds(authConfigure.getRefreshTokenValiditySeconds());
+        tokenServices.setRefreshTokenValiditySeconds(authProperties.getRefreshTokenValiditySeconds());
         return tokenServices;
     }
 }

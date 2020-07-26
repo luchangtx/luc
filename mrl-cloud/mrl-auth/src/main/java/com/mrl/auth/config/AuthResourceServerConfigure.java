@@ -1,10 +1,9 @@
 package com.mrl.auth.config;
 
+import com.mrl.auth.properties.AuthProperties;
 import com.mrl.common.handle.AuthAccessDeniedHandler;
 import com.mrl.common.handle.AuthExceptionEntryPoint;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.autoconfigure.condition.ConditionalOnMissingBean;
-import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.oauth2.config.annotation.web.configuration.EnableResourceServer;
@@ -27,7 +26,7 @@ public class AuthResourceServerConfigure extends ResourceServerConfigurerAdapter
     @Autowired
     private AuthAccessDeniedHandler accessDeniedHandler;
     @Autowired
-    private AuthConfigure authConfigure;
+    private AuthProperties authProperties;
 
     @Override
     public void configure(HttpSecurity http) throws Exception {
@@ -37,7 +36,7 @@ public class AuthResourceServerConfigure extends ResourceServerConfigurerAdapter
                 .and()
                 .authorizeRequests()
                 //设置免认证路径
-                .antMatchers(authConfigure.getAnonUrl()).permitAll()
+                .antMatchers(authProperties.getAnonUrl()).permitAll()
                 .antMatchers("/**").authenticated()
                 .and().httpBasic();
     }

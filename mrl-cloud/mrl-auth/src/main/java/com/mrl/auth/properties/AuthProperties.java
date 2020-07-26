@@ -1,4 +1,4 @@
-package com.mrl.auth.config;
+package com.mrl.auth.properties;
 
 import com.mrl.auth.properties.ClientsProperties;
 import com.mrl.auth.properties.ValidateCodeProperties;
@@ -15,7 +15,7 @@ import org.springframework.context.annotation.PropertySource;
 @SpringBootConfiguration //Component派生注解，用于将本类纳入到ioc容器
 @PropertySource(value = {"classpath:auth.properties"})
 @ConfigurationProperties(prefix = "mrl.auth")
-public class AuthConfigure {
+public class AuthProperties {
     //oauth认证客户端配置
     private ClientsProperties[] clients={};
     private int accessTokenValiditySeconds = 60 * 60 * 24;

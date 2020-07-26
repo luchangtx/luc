@@ -1,12 +1,10 @@
 package com.mrl.server.system.controller;
 
-import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import com.baomidou.mybatisplus.core.toolkit.StringPool;
 import com.baomidou.mybatisplus.core.toolkit.StringUtils;
 import com.mrl.common.entry.CResponse;
 import com.mrl.common.entry.QueryRequest;
 import com.mrl.common.entry.system.DnUser;
-import com.mrl.common.entry.system.DnUserRole;
 import com.mrl.common.exception.ErrorType;
 import com.mrl.common.utils.ResponseUtil;
 import com.mrl.server.system.service.UserRoleService;
@@ -18,7 +16,6 @@ import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
-import java.util.List;
 import java.util.Map;
 
 /**

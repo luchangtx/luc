@@ -18,6 +18,8 @@ import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
+import java.nio.charset.StandardCharsets;
+import java.util.Base64;
 
 /**
  * OncePerRequestFilter 顾名思义，可以保证我们的逻辑只被执行一次
@@ -49,12 +51,17 @@ public class ValidateCodeFilter extends OncePerRequestFilter {
     @Override
     protected void doFilterInternal(HttpServletRequest request, HttpServletResponse response, FilterChain chain) throws ServletException, IOException {
         /**
+         * 首先，swagger不需要图形验证码校验
+         *
          * 当拦截的请求uri为/oauth/token,请求方法为post且参数grant_type=password的时候（对应密码模式获取令牌）需要进行验证码校验
          * doFilter,让过滤器继续往下执行，校验不通过时不继续，直接返回错误信息
          */
+        String clientId=getClientId(request);
+
         RequestMatcher matcher=new AntPathRequestMatcher("/oauth/token", HttpMethod.POST.toString());
         if (matcher.matches(request)
-                && StringUtils.equalsIgnoreCase(request.getParameter("grant_type"),"password")){
+                && StringUtils.equalsIgnoreCase(request.getParameter("grant_type"),"password")
+                && !StringUtils.equalsIgnoreCase(clientId,"swagger")){ //排除swagger
             try {
                 validateCode(request);
                 chain.doFilter(request,response);
@@ -68,9 +75,39 @@ public class ValidateCodeFilter extends OncePerRequestFilter {
             chain.doFilter(request,response);
         }
     }
+
+    /**
+     * 获取token（即登录的时候）校验图形验证码
+     * @param request
+     * @throws ValidateCodeException
+     */
     private void validateCode(HttpServletRequest request) throws ValidateCodeException {
         String code=request.getParameter("code");
         String key=request.getParameter("key");
         validateCodeService.check(key,code);
+    }
+
+    /**
+     * 根据请求获取clientId信息
+     * @param request
+     * @return
+     */
+    private String getClientId(HttpServletRequest request){
+        String header=request.getHeader("Authorization");
+        String clientId="";
+        try {
+            byte[] base64Token=header.substring(6).getBytes(StandardCharsets.UTF_8);
+            byte[] decoded;
+            //破解账号密码
+            decoded= Base64.getDecoder().decode(base64Token);
+            String token=new String(decoded,StandardCharsets.UTF_8);
+            int delim=token.indexOf(":");
+            if (delim!=-1){
+                clientId=new String[]{token.substring(0,delim),token.substring(delim+1)}[0];
+            }
+        }catch (Exception e){
+
+        }
+        return clientId;
     }
 }

@@ -17,7 +17,11 @@ public class RegisterSecurityConfigure extends WebSecurityConfigurerAdapter {
          * 要求用户向应用程序发送请求时都必须携带一个有效的csrf令牌
          * 而eureka client端通常不会拥有有效的跨站点请求令牌，此时eureka server端应该对eureka请求路径放行
          */
-        http.csrf().ignoringAntMatchers("/eureka/**");
+        http.csrf().ignoringAntMatchers("/eureka/**")
+                .and()
+                //SBA是通过spring-boot-starter-actuator提供的/actuator/**监控接口来实现的
+                // 而微服务都是受保护的，所以需要配置免认证
+                .authorizeRequests().antMatchers("/actuator/**").permitAll();
         super.configure(http);
     }
 }

@@ -10,6 +10,28 @@ spring:
     user:
       name: mrl
       password: luc
+  boot: #配置客户端访问的服务端地址及用户密码
+    admin:
+      client:
+        url: http://localhost:8401
+        username: mrl
+        password: luc
+
+info: #配置SBA客户端的名称、描述、版本
+  app:
+    name: ${spring.application.name}
+    description: "@project.description@"
+    version: "@project.version@"
+
+management:
+  endpoints:
+    web:
+      exposure:
+        include: '*' #将客户端所有监控端点都暴露给SBA服务端
+  endpoint:
+    health:
+      show-details: always #总是展示详细的健康信息
+
 eureka:
   instance:
     hostname: localhost

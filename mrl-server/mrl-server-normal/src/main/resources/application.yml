@@ -4,8 +4,14 @@ server:
 spring:
   application:
     name: MRL-Server-Normal
+  boot: #配置客户端访问的服务端地址及用户密码
+    admin:
+      client:
+        url: http://localhost:8401
+        username: mrl
+        password: luc
   autoconfigure: #因为common模块增加了mybatis-plus-boot-starter包含数据库自动装配，没有配置数据库的模块需要关闭数据库自动装配
-    exclude: org.springframework.boot.autoconfigure.jdbc.DataSourceAutoConfiguration #,com.baomidou.dynamic.datasource.spring.boot.autoconfigure.DynamicDataSourceAutoConfiguration
+    exclude: org.springframework.boot.autoconfigure.jdbc.DataSourceAutoConfiguration ,com.baomidou.dynamic.datasource.spring.boot.autoconfigure.DynamicDataSourceAutoConfiguration,org.springframework.boot.autoconfigure.data.redis.RedisAutoConfiguration
 
 eureka:
   instance:
@@ -26,3 +32,18 @@ feign:
     enabled: true #回退基于hystrix熔断器实现，开启调用回退功能
 hystrix:
   shareSecurityContext: true #把SecurityContext对象从当前线程共享到Hystrix线程
+
+info: #配置SBA客户端的名称、描述、版本
+  app:
+    name: ${spring.application.name}
+    description: "@project.description@"
+    version: "@project.version@"
+
+management:
+  endpoints:
+    web:
+      exposure:
+        include: '*' #将客户端所有监控端点都暴露给SBA服务端
+  endpoint:
+    health:
+      show-details: always #总是展示详细的健康信息

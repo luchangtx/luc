@@ -2,13 +2,13 @@
 <project xmlns="http://maven.apache.org/POM/4.0.0"
          xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
-    <modelVersion>4.0.0</modelVersion>
     <parent>
         <artifactId>mrl-cloud</artifactId>
         <groupId>com.mrl</groupId>
         <version>1.0</version>
         <relativePath>../mrl-cloud/pom.xml</relativePath>
     </parent>
+    <modelVersion>4.0.0</modelVersion>
 
     <groupId>com.mrl.server</groupId>
     <artifactId>mrl-server</artifactId>
@@ -22,12 +22,18 @@
         <module>mrl-server-normal</module>
     </modules>
 
+    <properties>
+        <mrl-common.version>1.0</mrl-common.version>
+        <mybatis-plus-dynamic.version>3.1.1</mybatis-plus-dynamic.version>
+        <p6spy.version>3.9.0</p6spy.version>
+    </properties>
+
     <dependencies>
         <!--引入功能模块-->
         <dependency>
             <groupId>com.mrl.common</groupId>
             <artifactId>mrl-common</artifactId>
-            <version>1.0</version>
+            <version>${mrl-common.version}</version>
         </dependency>
         <!--网关需要注册到服务中心，引入eureka client包-->
         <dependency>
@@ -39,14 +45,14 @@
         <dependency>
             <groupId>com.baomidou</groupId>
             <artifactId>dynamic-datasource-spring-boot-starter</artifactId>
-            <version>3.1.1</version>
+            <version>${mybatis-plus-dynamic.version}</version>
         </dependency>
 
         <!--p6spy 将所有的sql打出日志，放到一个文件下-->
         <dependency>
             <groupId>p6spy</groupId>
             <artifactId>p6spy</artifactId>
-            <version>3.9.0</version>
+            <version>${p6spy.version}</version>
         </dependency>
 
         <!--mysql驱动依赖-->
@@ -55,6 +61,7 @@
             <artifactId>mysql-connector-java</artifactId>
             <scope>runtime</scope>
         </dependency>
+
     </dependencies>
 
 </project>

@@ -21,6 +21,7 @@
         <module>mrl-auth</module>
         <module>mrl-gateway</module>
         <module>../mrl-server</module>
+        <module>../mrl-monitor</module>
     </modules>
 
     <properties>

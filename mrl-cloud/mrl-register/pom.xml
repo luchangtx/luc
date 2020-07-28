@@ -14,6 +14,10 @@
     <name>mrl-register</name>
     <description>服务注册中心</description>
 
+    <properties>
+        <SBA-client.version>2.2.4</SBA-client.version>
+    </properties>
+
     <dependencies>
         <!--eureka服务注册中心依赖-->
         <dependency>
@@ -26,6 +30,14 @@
             <groupId>org.springframework.cloud</groupId>
             <artifactId>spring-cloud-starter-security</artifactId>
         </dependency>
+
+        <!--SBA客户端依赖-->
+        <dependency>
+            <groupId>de.codecentric</groupId>
+            <artifactId>spring-boot-admin-starter-client</artifactId>
+            <version>${SBA-client.version}</version>
+        </dependency>
+
     </dependencies>
 
     <!--需要打包-->

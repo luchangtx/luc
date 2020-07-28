@@ -1,15 +1,25 @@
 package com.mrl.gateway.filter;
 
+import com.alibaba.fastjson.JSONObject;
+import com.mrl.common.entry.CResponse;
 import com.mrl.common.entry.Constant;
+import com.mrl.common.utils.ResponseUtil;
+import com.mrl.gateway.properties.GatewayProperties;
 import com.netflix.zuul.ZuulFilter;
 import com.netflix.zuul.context.RequestContext;
 import com.netflix.zuul.exception.ZuulException;
 import lombok.extern.slf4j.Slf4j;
+import org.apache.commons.lang3.ArrayUtils;
+import org.apache.commons.lang3.StringUtils;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.cloud.netflix.zuul.filters.support.FilterConstants;
 import org.springframework.stereotype.Component;
+import org.springframework.util.AntPathMatcher;
 import org.springframework.util.Base64Utils;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+import java.io.IOException;
 
 /**
  * zuul拦截器，在网关转发之前设置请求头部信息，以拦截不通过网关直接访问服务地址的请求
@@ -20,6 +30,11 @@ import javax.servlet.http.HttpServletRequest;
 @Component
 @Slf4j
 public class GatewayRequestFilter extends ZuulFilter {
+
+    @Autowired
+    private GatewayProperties properties;
+    private AntPathMatcher pathMatcher=new AntPathMatcher();
+
     //对应zuul生命周期的四个阶段：pre、post、route、error
     //我们需要在请求转发出去之前添加请求头，所以指定为pre
     @Override
@@ -54,6 +69,32 @@ public class GatewayRequestFilter extends ZuulFilter {
         //获取请求url
         String uri=request.getRequestURI();
         log.info("请求URI：{}，HTTP Method：{}，请求IP：{}，ServerId：{}",uri,method,host,serviceId);
+
+        //禁止外部方位资源实现
+        boolean shouldForward=true;
+        String forbidRequestUri=properties.getForbidRequestUri();
+        String[] forbidRequestUris= StringUtils.splitByWholeSeparatorPreserveAllTokens(forbidRequestUri,",");
+
+        if (forbidRequestUris!=null&& ArrayUtils.isNotEmpty(forbidRequestUris)){
+            for (String furi:forbidRequestUris){
+                if (pathMatcher.match(furi,uri)){
+                    shouldForward=false;
+                    break;
+                }
+            }
+        }
+        if (!shouldForward){
+            HttpServletResponse response=ctx.getResponse();
+            CResponse cResponse=new CResponse().message("该URI不允许外部访问");
+            try {
+                ResponseUtil.makeResponse(response,Constant.JSON_UTF8,HttpServletResponse.SC_FORBIDDEN,cResponse);
+                ctx.setSendZuulResponse(false);
+                ctx.setResponse(response);
+            }catch (IOException e){
+                e.printStackTrace();
+            }
+            return null;
+        }
 
         //请求上下文头部添加 key 和 value 的信息
         byte[] token= Base64Utils.encode((Constant.ZUUL_TOKEN_VALUE).getBytes());

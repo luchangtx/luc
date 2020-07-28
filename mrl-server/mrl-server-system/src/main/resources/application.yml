@@ -4,6 +4,12 @@ server:
 spring:
   application:
     name: MRL-Server-System
+  boot: #配置客户端访问的服务端地址及用户密码
+    admin:
+      client:
+        url: http://localhost:8401
+        username: mrl
+        password: luc
   datasource:
     dynamic:
       hikari: #springboot2.0之后推荐使用连接池，响应速度快
@@ -21,6 +27,8 @@ spring:
           driver-class-name: com.mysql.cj.jdbc.Driver
           url: jdbc:mysql://localhost:3306/cloud_base?useUnicode=true&characterEncoding=UTF-8&useJDBCCompliantTimeZoneShift=true&useLegacyDatetimeCode=false&serverTimezone=GMT%2B8
       p6spy: true #开启p6spy sql日志打印，开发环境性能会带来损耗，生产环境建议关闭
+  autoconfigure:
+    exclude: org.springframework.boot.autoconfigure.data.redis.RedisAutoConfiguration
 
 mybatis-plus:
   type-aliases-package: com.mrl.common.entry.system,com.mrl.server.system.vo
@@ -45,3 +53,18 @@ security:
     resource:
       id: ${spring.application.name}
       user-info-uri: http://localhost:8201/auth/user #校验令牌是否合法；通过令牌获取用户信息
+
+info: #配置SBA客户端的名称、描述、版本
+  app:
+    name: ${spring.application.name}
+    description: "@project.description@"
+    version: "@project.version@"
+
+management:
+  endpoints:
+    web:
+      exposure:
+        include: '*' #将客户端所有监控端点都暴露给SBA服务端
+  endpoint:
+    health:
+      show-details: always #总是展示详细的健康信息

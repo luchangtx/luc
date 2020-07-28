@@ -32,6 +32,27 @@ spring:
           password: luc
           driver-class-name: com.mysql.cj.jdbc.Driver
           url: jdbc:mysql://localhost:3306/cloud_base?useUnicode=true&characterEncoding=UTF-8&useJDBCCompliantTimeZoneShift=true&useLegacyDatetimeCode=false&serverTimezone=GMT%2B8
+  boot: #配置客户端访问的服务端地址及用户密码
+    admin:
+      client:
+        url: http://localhost:8401
+        username: mrl
+        password: luc
+
+info: #配置SBA客户端的名称、描述、版本
+  app:
+    name: ${spring.application.name}
+    description: "@project.description@"
+    version: "@project.version@"
+
+management:
+  endpoints:
+    web:
+      exposure:
+        include: '*' #将客户端所有监控端点都暴露给SBA服务端
+  endpoint:
+    health:
+      show-details: always #总是展示详细的健康信息
 
 mybatis-plus:
   type-aliases-package: com.mrl.common.entry.system #指定别名扫描路径，默认为类名首字母小写，配置之后可直接在xml文件里使用

@@ -10,6 +10,17 @@ spring:
         url: http://localhost:8401
         username: mrl
         password: luc
+  zipkin:
+    sender:
+      type: rabbit #指定用rabbitmq收集追踪信息
+  sleuth:
+    sampler:
+      probability: 1 #默认0.1，即采样率1/10，发送10笔只有一笔被采集，设置为1表示100%采样
+  rabbitmq:
+    host: localhost
+    port: 5672
+    username: guest
+    password: guest
   autoconfigure: #因为common模块增加了mybatis-plus-boot-starter包含数据库自动装配，没有配置数据库的模块需要关闭数据库自动装配
     exclude: org.springframework.boot.autoconfigure.jdbc.DataSourceAutoConfiguration ,com.baomidou.dynamic.datasource.spring.boot.autoconfigure.DynamicDataSourceAutoConfiguration,org.springframework.boot.autoconfigure.data.redis.RedisAutoConfiguration
 

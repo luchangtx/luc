@@ -62,6 +62,27 @@
             <scope>runtime</scope>
         </dependency>
 
+        <!--Spring Cloud Sleuth追踪链路，并借助Zipkin以图形化界面展示-->
+        <!--在较低版本的Spring Cloud中，我们可以自己搭建Zipkin Server，现在我们只能使用官方搭建好的Zipkin Server-->
+        <!--地址为：https://github.com/openzipkin/zipkin-->
+        <!--zipkin sql地址：https://github.com/openzipkin/zipkin/blob/master/zipkin-storage/mysql-v1/src/main/resources/mysql.sql-->
+        <dependency>
+            <groupId>org.springframework.cloud</groupId>
+            <artifactId>spring-cloud-starter-sleuth</artifactId>
+        </dependency>
+
+        <!--zipkin依赖-->
+        <dependency>
+            <groupId>org.springframework.cloud</groupId>
+            <artifactId>spring-cloud-starter-zipkin</artifactId>
+        </dependency>
+
+        <!--rabbitmq依赖，用于收集 sleuth收集的追踪信息，zipkin server从rabbitmq里获取-->
+        <dependency>
+            <groupId>org.springframework.amqp</groupId>
+            <artifactId>spring-rabbit</artifactId>
+        </dependency>
+
     </dependencies>
 
 </project>

@@ -18,6 +18,7 @@ public class FeignController {
 
     @GetMapping("feign")
     public String feign(String name) {
+        log.info("Feign调用MRL-Server-System的/feign服务");
         return iFeignService.feign(name);
     }
 }

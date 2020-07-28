@@ -1,0 +1,14 @@
+server:
+  port: 8401
+
+spring:
+  application:
+    name: MRL-Monitor-Admin
+  boot:
+    admin:
+      ui:
+        title: ${spring.application.name} #web页面title
+  security: #开启端点保护
+    user:
+      name: mrl
+      password: luc

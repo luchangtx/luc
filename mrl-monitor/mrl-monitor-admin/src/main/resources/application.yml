@@ -7,8 +7,8 @@ spring:
   boot:
     admin:
       ui:
-        title: ${spring.application.name} #webÒ³Ãætitle
-  security: #¿ªÆô¶Ëµã±£»¤
+        title: ${spring.application.name} #webé¡µé¢title
+  security: #å¼€å¯ç«¯ç‚¹ä¿æŠ¤
     user:
       name: mrl
       password: luc

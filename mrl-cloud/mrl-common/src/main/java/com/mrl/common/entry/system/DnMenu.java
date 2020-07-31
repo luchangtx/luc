@@ -22,7 +22,7 @@ public class DnMenu extends BasePojo implements Serializable {
     private static final long serialVersionUID = -7485184031456472407L;
 
     //菜单/按钮ID
-    @TableId(value = "MENU_ID",type = IdType.UUID)
+    @TableId(value = "MENU_ID",type = IdType.ASSIGN_UUID)
     private String menuId;
 
     //上级菜单ID

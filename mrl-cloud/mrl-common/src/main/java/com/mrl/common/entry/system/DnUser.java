@@ -40,7 +40,7 @@ public class DnUser extends BasePojo implements Serializable {
     public static final String SEX_UNKNOW = "0";
 
     //用户ID
-    @TableId(value = "USER_ID",type = IdType.UUID)
+    @TableId(value = "USER_ID",type = IdType.ASSIGN_UUID)
     private String userId;
 
     //用户名

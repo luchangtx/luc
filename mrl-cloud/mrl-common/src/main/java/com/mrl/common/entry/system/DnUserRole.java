@@ -20,7 +20,7 @@ public class DnUserRole extends BasePojo implements Serializable {
     private static final long serialVersionUID = 5911635743235757021L;
 
     //用户角色ID
-    @TableId(value = "USER_ROLE_ID",type = IdType.UUID)
+    @TableId(value = "USER_ROLE_ID",type = IdType.ASSIGN_UUID)
     private String userRoleId;
 
     //用户名

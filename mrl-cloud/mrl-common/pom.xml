@@ -18,7 +18,7 @@
         <lombok.version>1.18.12</lombok.version>
         <fastjson.version>1.2.67</fastjson.version>
         <commons-lang3.version>3.10</commons-lang3.version>
-        <mybatis-plus.version>3.1.2</mybatis-plus.version>
+        <mybatis-plus.version>3.3.2</mybatis-plus.version>
         <SBA-client.version>2.2.4</SBA-client.version>
     </properties>
 
